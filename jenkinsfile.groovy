@@ -46,6 +46,9 @@ pipeline {
 
             # Show the apk
             ls -ltrha ${WORKSPACE}/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk
+
+            # zip -r test_bundle.zip tests/ wheelhouse/ requirements.txt
+
             '''
          }         
       }
