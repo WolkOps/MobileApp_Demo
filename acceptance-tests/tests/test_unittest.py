@@ -46,6 +46,8 @@ class SimpleAndroidTests(unittest.TestCase):
         # self.assertIsNotNone(el)
         # el = self.driver.find_element_by_accessibility_id("contacts Contact")
         # self.assertIsNotNone(el)
+        # el = self.driver.find_element_by_accessibility_id("New Paragraph added")
+        # self.assertIsNotNone(el)
         self.assertTrue(True)
 
 
