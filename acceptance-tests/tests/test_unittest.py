@@ -14,12 +14,13 @@ class SimpleAndroidTests(unittest.TestCase):
     def setUp(self):
         desired_caps = {}
         desired_caps['platformName'] = 'Android'
-        desired_caps['platformVersion'] = '8.0.0'
+        desired_caps['platformVersion'] = '7.1.2'
         desired_caps['deviceName'] = 'Android Emulator'
-        desired_caps['automationName'] = 'UiAutomator2'
+        desired_caps['automationName'] = 'Appium'
         desired_caps['skipUnlock'] = True
+        desired_caps['autoWebview'] = True
         desired_caps['app'] = PATH(
-            '/Users/itomaldonado/git/wolkops/MobileApp_Demo/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk'
+            '/Users/itomaldonado/git/wolkops/MobileApp_Demo/platforms/android/app/build/outputs/apk/debug/app-debug.apk'
         )
 
         self.driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', desired_caps)
@@ -32,60 +33,85 @@ class SimpleAndroidTests(unittest.TestCase):
 
     def test_home_tab(self):
         # pause a moment, so xml generation can occur
-        sleep(35)
+        sleep(5)
 
-        el = self.driver.find_element_by_xpath('//*[@content-desc="Home"]')
+        el = self.driver.find_element_by_xpath('//*[@id="tabpanel-t0-0"]/page-home/ion-header/ion-navbar/div[2]/ion-title/div')
         self.assertIsNotNone(el)
-        el = self.driver.find_element_by_xpath('//*[@content-desc="Welcome to Ionic!"]')
+        self.assertEquals(el.text, 'Home')
+        
+        el = self.driver.find_element_by_xpath('//*[@id="tabpanel-t0-0"]/page-home/ion-content/div[2]/h2')
         self.assertIsNotNone(el)
-        el = self.driver.find_element_by_xpath('//*[@content-desc="This starter project comes with simple tabs-based layout for apps that are going to primarily use a Tabbed UI."]')
+        self.assertEquals(el.text, 'Welcome to Ionic!')
+
+        el = self.driver.find_element_by_xpath('//*[@id="tabpanel-t0-0"]/page-home/ion-content/div[2]/p[1]')
         self.assertIsNotNone(el)
-        el = self.driver.find_element_by_xpath('//*[@content-desc="home Home"]')
+        self.assertEquals(el.text, 'This starter project comes with simple tabs-based layout for apps that are going to primarily use a Tabbed UI.')
+
+        el = self.driver.find_element_by_xpath('//*[@id="tab-t0-0"]')
         self.assertIsNotNone(el)
-        el = self.driver.find_element_by_xpath('//*[@content-desc="information circle About"]')
+
+        el = self.driver.find_element_by_xpath('//*[@id="tab-t0-1"]')
         self.assertIsNotNone(el)
-        el = self.driver.find_element_by_xpath('//*[@content-desc="contacts Contact"]')
-        self.assertIsNotNone(el)
-        el = self.driver.find_element_by_xpath('//*[@content-desc="contacts Contact"]')
+
+        el = self.driver.find_element_by_xpath('//*[@id="tab-t0-2"]')
         self.assertIsNotNone(el)
 
 
     def test_about_tab(self):
         # pause a moment, so xml generation can occur
-        sleep(35)
+        sleep(5)
+
+        el = self.driver.find_element_by_id('tab-t0-1') # About
+        self.assertIsNotNone(el)
+        el.click()
+        sleep(1)
         
-        el = self.driver.find_element_by_xpath('//*[@content-desc="information circle About"]')
-        el.click()
-        sleep(5)
-        el = self.driver.find_element_by_xpath('//*[@content-desc="About"]')
+        el = self.driver.find_element_by_xpath('//*[@id="tabpanel-t0-1"]/page-about/ion-header/ion-navbar/div[2]/ion-title/div')
         self.assertIsNotNone(el)
-        el = self.driver.find_element_by_xpath('//*[@content-desc="home Home"]')
+        self.assertEquals(el.text, 'About')
+        
+        el = self.driver.find_element_by_id('tab-t0-0') # Home
         el.click()
-        sleep(5)
-        el = self.driver.find_element_by_xpath('//*[@content-desc="Home"]')
+        sleep(1)
+        
+        el = self.driver.find_element_by_xpath('//*[@id="tabpanel-t0-0"]/page-home/ion-header/ion-navbar/div[2]/ion-title/div')
         self.assertIsNotNone(el)
+        self.assertEquals(el.text, 'Home')
 
 
     def test_contact_tab(self):
         # pause a moment, so xml generation can occur
-        sleep(35)
+        sleep(5)
         
-        el = self.driver.find_element_by_xpath('//*[@content-desc="contacts Contact"]')
+        el = self.driver.find_element_by_id('tab-t0-2') # Contact
+        self.assertIsNotNone(el)
         el.click()
-        sleep(5)
-        el = self.driver.find_element_by_xpath('//*[@content-desc="Contact"]')
+        sleep(1)
+
+        el = self.driver.find_element_by_xpath('//*[@id="tabpanel-t0-2"]/page-contact/ion-header/ion-navbar/div[2]/ion-title/div')
         self.assertIsNotNone(el)
-        el = self.driver.find_element_by_xpath('//*[@content-desc="Follow us on Twitter"]')
+        self.assertEquals(el.text, 'Contact')
+
+        el = self.driver.find_element_by_xpath('//*[@id="tabpanel-t0-2"]/page-contact/ion-content/div[2]/ion-list/ion-list-header/div[1]/div/ion-label')
         self.assertIsNotNone(el)
-        el = self.driver.find_element_by_xpath('//*[@content-desc="ionic"]')
+        self.assertEquals(el.text, 'Follow us on Twitter')
+
+        el = self.driver.find_element_by_xpath('//*[@id="tabpanel-t0-2"]/page-contact/ion-content/div[2]/ion-list/ion-item/div[1]/div/ion-label')
         self.assertIsNotNone(el)
-        el = self.driver.find_element_by_xpath('//*[@content-desc="@ionicframework"]')
+        self.assertEquals(el.text, '@ionicframework')
+
+        el = self.driver.find_element_by_xpath('//*[@id="tabpanel-t0-2"]/page-contact/ion-content/div[2]/ion-list/ion-item/ion-icon')
         self.assertIsNotNone(el)
-        el = self.driver.find_element_by_xpath('//*[@content-desc="home Home"]')
+        self.assertEquals(el.get_attribute('name'), 'ionic')
+
+        
+        el = self.driver.find_element_by_id('tab-t0-0') # Home
         el.click()
-        sleep(5)
-        el = self.driver.find_element_by_xpath('//*[@content-desc="Home"]')
+        sleep(1)
+        
+        el = self.driver.find_element_by_xpath('//*[@id="tabpanel-t0-0"]/page-home/ion-header/ion-navbar/div[2]/ion-title/div')
         self.assertIsNotNone(el)
+        self.assertEquals(el.text, 'Home')
 
 
 if __name__ == '__main__':

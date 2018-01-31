@@ -42,10 +42,10 @@ pipeline {
 
             # Build android app
             npm install
-            ionic cordova build android --prod --release -- -- --minSdkVersion=21
+            ionic cordova build android
 
             # Show the apk
-            ls -ltrha ${WORKSPACE}/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk
+            ls -ltrha ${WORKSPACE}/platforms/android/app/build/outputs/apk/debug/app-debug.apk
 
             # zip -r test_bundle.zip tests/ wheelhouse/ requirements.txt
 
