@@ -32,7 +32,7 @@ class SimpleAndroidTests(unittest.TestCase):
 
     def test_home_tab(self):
         # pause a moment, so xml generation can occur
-        sleep(5)
+        sleep(60)
 
         # el = self.driver.find_element_by_accessibility_id("Home")
         # self.assertIsNotNone(el)
@@ -40,8 +40,8 @@ class SimpleAndroidTests(unittest.TestCase):
         # self.assertIsNotNone(el)
         # el = self.driver.find_element_by_accessibility_id("This starter project comes with simple tabs-based layout for apps that are going to primarily use a Tabbed UI.")
         # self.assertIsNotNone(el)
-        # el = self.driver.find_element_by_accessibility_id("home Home")
-        # self.assertIsNotNone(el)
+        el = self.driver.find_element_by_accessibility_id("home Home")
+        self.assertIsNotNone(el)
         # el = self.driver.find_element_by_accessibility_id("information circle About")
         # self.assertIsNotNone(el)
         # el = self.driver.find_element_by_accessibility_id("contacts Contact")
