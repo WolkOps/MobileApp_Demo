@@ -47,10 +47,6 @@ class SimpleAndroidTests(unittest.TestCase):
         self.assertIsNotNone(el)
         self.assertEquals(el.text, 'This starter project comes with simple tabs-based layout for apps that are going to primarily use a Tabbed UI.')
 
-        el = self.driver.find_element_by_xpath('//*[@id="tabpanel-t0-0"]/page-home/ion-content/div[2]/p[3]')
-        self.assertIsNotNone(el)
-        self.assertEquals(el.text, 'Hello, world!')
-
         el = self.driver.find_element_by_xpath('//*[@id="tab-t0-0"]')
         self.assertIsNotNone(el)
 
